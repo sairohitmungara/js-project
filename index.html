@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaHub - Creative Ideas Sharing Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <i class="fas fa-lightbulb logo-icon"></i>
+                <h1 class="logo">IdeaHub</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#ideas" class="nav-link" data-section="ideas">Ideas</a></li>
+                <li><a href="#leaderboard" class="nav-link" data-section="leaderboard">Top Creators</a></li>
+                <li><a href="#brainstorm" class="nav-link" data-section="brainstorm">Brainstorm</a></li>
+                <li id="loginBtn" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Modal Login/Register -->
+    <div id="authModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-container">
+                <div class="auth-toggle">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <h2>Welcome Back!</h2>
+                    <input type="email" placeholder="Email" id="loginEmail" required>
+                    <input type="password" placeholder="Password" id="loginPassword" required>
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <h2>Join the Creative Community</h2>
+                    <input type="text" placeholder="Full Name" id="registerName" required>
+                    <input type="email" placeholder="Email" id="registerEmail" required>
+                    <input type="password" placeholder="Password" id="registerPassword" required>
+                    <button type="submit" class="btn-primary">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">Share Your Creative Vision</h2>
+                <p class="hero-subtitle">Collaborate, Vote, and Innovate with the Community</p>
+                <button class="btn-primary btn-large" id="submitIdeaBtn">Submit Your Idea</button>
+            </div>
+            <div class="hero-images">
+                <div class="floating-card card-1">
+                    <i class="fas fa-rocket"></i>
+                    <p>Innovative Ideas</p>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-users"></i>
+                    <p>Community</p>
+                </div>
+                <div class="floating-card card-3">
+                    <i class="fas fa-star"></i>
+                    <p>Recognition</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Showcase -->
+        <div class="categories-section">
+            <h2>Explore Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="technology">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Technology</h3>
+                    <p>AI, Apps, Software</p>
+                </div>
+                <div class="category-card" data-category="design">
+                    <i class="fas fa-palette"></i>
+                    <h3>Design</h3>
+                    <p>UI/UX, Graphics, Art</p>
+                </div>
+                <div class="category-card" data-category="business">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Business</h3>
+                    <p>Startups, Marketing</p>
+                </div>
+                <div class="category-card" data-category="sustainability">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Sustainability</h3>
+                    <p>Green Tech, Environment</p>
+                </div>
+                <div class="category-card" data-category="education">
+                    <i class="fas fa-book"></i>
+                    <h3>Education</h3>
+                    <p>Learning, Skills</p>
+                </div>
+                <div class="category-card" data-category="entertainment">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Entertainment</h3>
+                    <p>Gaming, Content, Media</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Ideas -->
+        <div class="featured-section">
+            <h2>Featured Ideas</h2>
+            <div id="featuredIdeas" class="ideas-grid"></div>
+        </div>
+    </section>
+
+    <!-- Ideas Section -->
+    <section id="ideas" class="section">
+        <div class="section-header">
+            <h2>All Ideas</h2>
+            <div class="filter-controls">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="technology">Technology</option>
+                    <option value="design">Design</option>
+                    <option value="business">Business</option>
+                    <option value="sustainability">Sustainability</option>
+                    <option value="education">Education</option>
+                    <option value="entertainment">Entertainment</option>
+                </select>
+                <button id="sortBtn" class="sort-btn"><i class="fas fa-sort-down"></i> Sort</button>
+            </div>
+        </div>
+        <div id="ideasContainer" class="ideas-grid"></div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard" class="section">
+        <div class="section-header">
+            <h2>Top Creators</h2>
+            <p class="subtitle">Celebrating our most innovative contributors</p>
+        </div>
+        <div class="leaderboard-container">
+            <div id="leaderboardList" class="leaderboard-list"></div>
+        </div>
+    </section>
+
+    <!-- Brainstorm Section -->
+    <section id="brainstorm" class="section">
+        <div class="section-header">
+            <h2>Collaborative Brainstorm Board</h2>
+            <p class="subtitle">Real-time ideas from our community</p>
+        </div>
+        <div class="brainstorm-container">
+            <div id="brainstormBoard" class="brainstorm-board"></div>
+            <div class="brainstorm-input">
+                <input type="text" id="brainstormInput" placeholder="Share a quick idea..." maxlength="150">
+                <button id="brainstormSubmitBtn" class="btn-primary"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Idea Submission Modal -->
+    <div id="submitModal" class="modal hidden">
+        <div class="modal-content large">
+            <span class="close-modal">&times;</span>
+            <h2>Submit Your Brilliant Idea</h2>
+            <form id="ideaForm" class="idea-form">
+                <input type="text" placeholder="Idea Title" id="ideaTitle" maxlength="100" required>
+                <textarea placeholder="Describe your idea in detail..." id="ideaDescription" maxlength="500" required></textarea>
+                <select id="ideaCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="technology">Technology</option>
+                    <option value="design">Design</option>
+                    <option value="business">Business</option>
+                    <option value="sustainability">Sustainability</option>
+                    <option value="education">Education</option>
+                    <option value="entertainment">Entertainment</option>
+                </select>
+                <input type="text" placeholder="Image URL (optional)" id="ideaImage">
+                <button type="submit" class="btn-primary">Submit Idea</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Idea Detail Modal -->
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-content large">
+            <span class="close-modal">&times;</span>
+            <div id="ideaDetail" class="idea-detail"></div>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="profileModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="profileContent" class="profile-content"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
